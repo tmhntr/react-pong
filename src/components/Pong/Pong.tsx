@@ -8,15 +8,15 @@ export type PongProps = { wsAddress: string };
 
 export default class Pong extends Component<PongProps>{
   componentDidMount () {
-    console.log(this.props)
+    // console.log(this.props)
     var game = pongGame.Game();
-    game.PLAY_SOUND = false;
     const { wsAddress} = this.props
     if (wsAddress) {
-      console.log(wsAddress)
-      var agent = WebPaddleAgent(pongGame.LEFT, game, wsAddress);
+      // console.log(wsAddress)
+      const agent = WebPaddleAgent(pongGame.LEFT, game, wsAddress);
       game.set_left_paddle(agent);
     } 
+    game.PLAY_SOUND = false;
     pg.setup(game);
   }
   render () {
