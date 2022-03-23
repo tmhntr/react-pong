@@ -141,27 +141,28 @@ export var WebPaddleAgent = __class__("WebPaddleAgent", [Paddle], {
       self.side = player;
       self.nextmove = 1;
       self.game = game;
-      window.addEventListener("DOMContentLoaded", () => {
-        // Open the WebSocket connection and register event handlers.
-        const websocket = new WebSocket("ws://localhost:8001/");
-        console.log("connected");
-        console.log(websocket);
-        websocket.addEventListener("message", ({ data }) => {
-          const event = JSON.parse(data);
-          self.set_nextmove(event.action);
-          let response = {
-            observation: self.observe(),
-          };
-          websocket.send(JSON.stringify(response));
-        });
+      console.log("connecting");
+      // window.addEventListener("DOMContentLoaded", () => {
+      // Open the WebSocket connection and register event handlers.
+      const websocket = new WebSocket("ws://localhost:8001/");
+      console.log("connected");
+      console.log(websocket);
+      websocket.addEventListener("message", ({ data }) => {
+        const event = JSON.parse(data);
+        self.set_nextmove(event.action);
         let response = {
           observation: self.observe(),
         };
-        setTimeout(() => {
-          websocket.send(JSON.stringify(response));
-        }, 2000);
+        websocket.send(JSON.stringify(response));
       });
+      let response = {
+        observation: self.observe(),
+      };
+      setTimeout(() => {
+        websocket.send(JSON.stringify(response));
+      }, 2000);
     });
+    // });
   },
   get set_nextmove() {
     return __get__(this, function (self, nextmove) {
