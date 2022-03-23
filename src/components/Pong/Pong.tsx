@@ -6,14 +6,15 @@ import { WebPaddleAgent } from "../../utils/WebPaddleAgent.js";
 
 
 const Pong = ({wsAddress}) => {
-  var game: any, agent: any
+  // var game: any, agent: any
   useEffect(() => {
-    game = pongGame.Game();
+    var game = pongGame.Game();
     game.PLAY_SOUND = false;
-    agent = WebPaddleAgent(pongGame.LEFT, game, wsAddress);
+    var agent = WebPaddleAgent(pongGame.LEFT, game, wsAddress);
     game.set_left_paddle(agent);
     pg.setup(game);
   }, [])
+
   return <div id="__panel__"></div>;
   
 };
