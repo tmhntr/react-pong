@@ -141,12 +141,12 @@ export var WebPaddleAgent = __class__("WebPaddleAgent", [Paddle], {
       self.side = player;
       self.nextmove = 1;
       self.game = game;
-      console.log("connecting");
+      // console.log("connecting");
       // window.addEventListener("DOMContentLoaded", () => {
       // Open the WebSocket connection and register event handlers.
-      const websocket = new WebSocket("ws://localhost:8001/");
-      console.log("connected");
-      console.log(websocket);
+      const websocket = new WebSocket(wsAddress);
+      // console.log("connected");
+      // console.log(websocket);
       websocket.addEventListener("message", ({ data }) => {
         const event = JSON.parse(data);
         self.set_nextmove(event.action);
