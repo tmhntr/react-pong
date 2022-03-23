@@ -129,21 +129,21 @@ import {
   tuple,
   zip,
 } from "./org.transcrypt.__runtime__.js";
-import {Paddle, LEFT, RIGHT, SCREEN_WIDTH} from "./pongGame.js";
+import { Paddle, LEFT, RIGHT, SCREEN_WIDTH } from "./pongGame.js";
 import * as pg from "./pyjsdl.js";
-var __name__ = '__main__';
+var __name__ = "__main__";
 
 export var WebPaddleAgent = __class__("WebPaddleAgent", [Paddle], {
   __module__: __name__,
   get __init__() {
-    return __get__(this, function (self, player, game) {
+    return __get__(this, function (self, player, game, wsAddress) {
       __super__(WebPaddleAgent, "__init__")(self, player, pg.K_w, pg.K_s);
       self.side = player;
       self.nextmove = 1;
       self.game = game;
       window.addEventListener("DOMContentLoaded", () => {
         // Open the WebSocket connection and register event handlers.
-        const websocket = new WebSocket("ws://localhost:8001/");
+        const websocket = new WebSocket(wsAddress);
         websocket.addEventListener("message", ({ data }) => {
           const event = JSON.parse(data);
           self.set_nextmove(event.action);
@@ -155,8 +155,9 @@ export var WebPaddleAgent = __class__("WebPaddleAgent", [Paddle], {
         let response = {
           observation: self.observe(),
         };
-        setTimeout(() => {websocket.send(JSON.stringify(response));}, 2000)
-        
+        setTimeout(() => {
+          websocket.send(JSON.stringify(response));
+        }, 2000);
       });
     });
   },
@@ -208,7 +209,7 @@ export var WebPaddleAgent = __class__("WebPaddleAgent", [Paddle], {
       } else if (self.nextmove == 2) {
         self.move_up();
       }
-      
+
       __super__(WebPaddleAgent, "py_update")(self);
     });
   },

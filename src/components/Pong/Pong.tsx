@@ -5,17 +5,17 @@ import * as pg from "../../utils/pyjsdl.js";
 import { WebPaddleAgent } from "../../utils/WebPaddleAgent.js";
 
 
-export default class Pong extends Component{
-  componentDidMount () {
-    var game = pongGame.Game();
+const Pong = ({wsAddress}) => {
+  var game: any, agent: any
+  useEffect(() => {
+    game = pongGame.Game();
     game.PLAY_SOUND = false;
-    var agent = WebPaddleAgent(pongGame.LEFT, game);
+    agent = WebPaddleAgent(pongGame.LEFT, game, wsAddress);
     game.set_left_paddle(agent);
     pg.setup(game);
-  }
-  render () {
-
-    return <div id="__panel__"></div>;
-  } 
+  }, [])
+  return <div id="__panel__"></div>;
+  
 };
 
+export default Pong

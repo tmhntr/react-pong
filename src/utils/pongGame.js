@@ -437,11 +437,9 @@ export var Game = __class__("Game", [object], {
       );
       if (ball_collision) {
         if (ball_collision[0] === self.left) {
-          print("collision left");
           self.ball.bounce(LEFT);
           pg.event.post(pg.event.Event(BOUNCE, dict({ side: LEFT })));
         } else if (ball_collision[0] == self.right) {
-          print("collision right");
           self.ball.bounce(RIGHT);
           pg.event.post(pg.event.Event(BOUNCE, dict({ side: RIGHT })));
         }
@@ -481,85 +479,86 @@ export var Game = __class__("Game", [object], {
   },
 });
 export var WebPaddleAgent = __class__("WebPaddleAgent", [Paddle], {
-	__module__: __name__,
-	get __init__() {
-	  return __get__(this, function (self, player, game) {
-		__super__(WebPaddleAgent, "__init__")(self, player, pg.K_w, pg.K_s);
-		self.side = player;
-		self.nextmove = 1;
-		self.game = game;
-		window.addEventListener("DOMContentLoaded", () => {
-		  // Open the WebSocket connection and register event handlers.
-		  const websocket = new WebSocket("ws://localhost:8001/");
-		  websocket.addEventListener("message", ({ data }) => {
-			const event = JSON.parse(data);
-			self.set_nextmove(event.action);
-			let response = {
-			  observation: self.observe(),
-			};
-			websocket.send(JSON.stringify(response));
-		  });
-		  let response = {
-			observation: self.observe(),
-		  };
-		  setTimeout(() => {websocket.send(JSON.stringify(response));}, 2000)
-		  
-		});
-	  });
-	},
-	get set_nextmove() {
-	  return __get__(this, function (self, nextmove) {
-		self.nextmove = nextmove;
-	  });
-	},
-	get observe() {
-	  return __get__(this, function (self) {
-		if (!self.game) {
-		  var __except0__ = ValueError("Game must be set");
-		  __except0__.__cause__ = null;
-		  throw __except0__;
-		} else if (self.side == LEFT) {
-		  return [
-			self.game.ball.rect.centerx,
-			self.game.ball.rect.centery,
-			self.game.ball.xspeed,
-			self.game.ball.yspeed,
-			self.rect.centery,
-		  ];
-		} else if (self.side == RIGHT) {
-		  return [
-			SCREEN_WIDTH - self.game.ball.rect.centerx,
-			self.game.ball.rect.centery,
-			-self.game.ball.xspeed,
-			self.game.ball.yspeed,
-			self.rect.centery,
-		  ];
-		}
-	  });
-	},
-	get set_game() {
-	  return __get__(this, function (self, game) {
-		self.game = game;
-	  });
-	},
-	get py_update() {
-	  return __get__(this, function (self, key) {
-		if (
-		  typeof key == "undefined" ||
-		  (key != null && key.hasOwnProperty("__kwargtrans__"))
-		) {
-		  var key = null;
-		}
-		if (self.nextmove == 0) {
-		  self.move_down();
-		} else if (self.nextmove == 2) {
-		  self.move_up();
-		}
-		
-		__super__(WebPaddleAgent, "py_update")(self);
-	  });
-	},
-  });
+  __module__: __name__,
+  get __init__() {
+    return __get__(this, function (self, player, game) {
+      __super__(WebPaddleAgent, "__init__")(self, player, pg.K_w, pg.K_s);
+      self.side = player;
+      self.nextmove = 1;
+      self.game = game;
+      window.addEventListener("DOMContentLoaded", () => {
+        // Open the WebSocket connection and register event handlers.
+        const websocket = new WebSocket("ws://localhost:8001/");
+        websocket.addEventListener("message", ({ data }) => {
+          const event = JSON.parse(data);
+          self.set_nextmove(event.action);
+          let response = {
+            observation: self.observe(),
+          };
+          websocket.send(JSON.stringify(response));
+        });
+        let response = {
+          observation: self.observe(),
+        };
+        setTimeout(() => {
+          websocket.send(JSON.stringify(response));
+        }, 2000);
+      });
+    });
+  },
+  get set_nextmove() {
+    return __get__(this, function (self, nextmove) {
+      self.nextmove = nextmove;
+    });
+  },
+  get observe() {
+    return __get__(this, function (self) {
+      if (!self.game) {
+        var __except0__ = ValueError("Game must be set");
+        __except0__.__cause__ = null;
+        throw __except0__;
+      } else if (self.side == LEFT) {
+        return [
+          self.game.ball.rect.centerx,
+          self.game.ball.rect.centery,
+          self.game.ball.xspeed,
+          self.game.ball.yspeed,
+          self.rect.centery,
+        ];
+      } else if (self.side == RIGHT) {
+        return [
+          SCREEN_WIDTH - self.game.ball.rect.centerx,
+          self.game.ball.rect.centery,
+          -self.game.ball.xspeed,
+          self.game.ball.yspeed,
+          self.rect.centery,
+        ];
+      }
+    });
+  },
+  get set_game() {
+    return __get__(this, function (self, game) {
+      self.game = game;
+    });
+  },
+  get py_update() {
+    return __get__(this, function (self, key) {
+      if (
+        typeof key == "undefined" ||
+        (key != null && key.hasOwnProperty("__kwargtrans__"))
+      ) {
+        var key = null;
+      }
+      if (self.nextmove == 0) {
+        self.move_down();
+      } else if (self.nextmove == 2) {
+        self.move_up();
+      }
+
+      __super__(WebPaddleAgent, "py_update")(self);
+    });
+  },
+});
 // export var main = function () {
 //   var game = Game();
 //   game.play();
