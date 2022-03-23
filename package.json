@@ -1,0 +1,28 @@
+{
+  "name": "react-pong",
+  "version": "0.0.1",
+  "description": "A pong game you can play in the browser",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "files": [
+    "dist"
+  ],
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "rollup": "rollup -c",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Tim Hunter",
+  "license": "ISC",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^21.0.2",
+    "@rollup/plugin-node-resolve": "^13.1.3",
+    "@rollup/plugin-typescript": "^8.3.1",
+    "@types/react": "^17.0.41",
+    "react": "^17.0.2",
+    "rollup": "^2.70.1",
+    "rollup-plugin-dts": "^4.2.0",
+    "typescript": "^4.6.2"
+  }
+}
