@@ -3,7 +3,7 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/tmhntr"
   },
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "A pong game you can play in the browser",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
