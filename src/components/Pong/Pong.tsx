@@ -7,11 +7,11 @@ import { WebPaddleAgent } from "../../utils/WebPaddleAgent.js";
 
 export default class Pong extends Component{
   componentDidMount () {
-    // var game = pongGame.Game();
-    // game.PLAY_SOUND = false;
-    // var agent = WebPaddleAgent(pongGame.LEFT, game);
-    // game.set_left_paddle(agent);
-    // pg.setup(game);
+    var game = pongGame.Game();
+    game.PLAY_SOUND = false;
+    var agent = WebPaddleAgent(pongGame.LEFT, game);
+    game.set_left_paddle(agent);
+    pg.setup(game);
   }
   render () {
 
