@@ -1,7 +1,7 @@
 {
   "name": "@tmhntr/react-pong",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+    "registry": "https://npm.pkg.github.com/tmhntr"
   },
   "repository": "git://github.com/tmhntr-react-pong.git",
   "version": "0.1.2",
